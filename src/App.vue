@@ -18,7 +18,10 @@ export default {
 }
 </script>
 <style>
-  #app{}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400&display=swap');
+#app{
+font-family: 'Montserrat', sans-serif;
+}
 ::-webkit-scrollbar {
   width: 12px;
 }

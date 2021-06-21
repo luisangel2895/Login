@@ -8,9 +8,10 @@ export default {
   name: 'Page404',
   mounted () {
     if (window.innerHeight >= 937) {
-      const heightContainer = window.innerHeight - 62 - 421
+      const heightContainer = window.innerHeight - 421 - 62
       const $imageContainer = document.querySelector('.container-404')
       $imageContainer.style.height = String(heightContainer) + 'px'
+      $imageContainer.style.marginTop = '62px'
     } else {
       const $imageContainer = document.querySelector('.container-404')
       $imageContainer.style.height = '454px'

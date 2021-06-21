@@ -14,6 +14,11 @@ const routes = [
     component: () => import('../views/Register.vue')
   },
   {
+    path: '/verify',
+    name: 'Verify',
+    component: () => import('../views/Verify.vue')
+  },
+  {
     path: '*',
     name: '404',
     component: () => import('../views/Page404.vue')
