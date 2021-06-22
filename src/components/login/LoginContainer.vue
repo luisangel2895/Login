@@ -1,23 +1,28 @@
 <template>
     <b-container fluid class="container-login-inner">
-        <div class="title-login">Bienvenido</div>
-        <div class="subtitle-login">Ingresa tus datos</div>
+        <div class="title-login">{{ $t('login.title') }}</div>
+        <div class="subtitle-login">{{ $t('login.subtitle') }}</div>
         <form action="" @submit.prevent="login()">
-          <div><input type="text" class="input-text" v-model="username" placeholder="Usuario"></div>
-          <div><input type="text" class="input-text" v-model="password" placeholder="Contrasena"></div>
-          <div class="button-container"><button type="submit" class="button-login">Registrar</button></div>
+          <div><input type="text" class="input-text" v-model="username" :placeholder="$t('login.form.user')"></div>
+           <div class="error" v-if="!$v.username.required && loginPressed">{{ $t('login.form.userRequired') }}</div>
+          <div><input type="text" class="input-text" v-model="password" :placeholder="$t('login.form.password')"></div>
+           <div class="error" v-if="!$v.password.required && loginPressed">{{ $t('login.form.passwordRequired') }}</div>
+          <div class="button-container"><button type="submit" class="button-login">{{ $t('login.form.login') }}</button></div>
         </form>
-        <div class="container-buttom-text">Aun no tienes una cuenta? <router-link to="register" class="link-bottom">Regitrate ahora</router-link></div>
-        <div class="container-buttom-text">Ya tienes un codigo de verificacion? <router-link to="verify" class="link-bottom">Valida tu cuenta</router-link></div>
+        <div class="container-buttom-text">{{ $t('login.msg1') }} <router-link to="register" class="link-bottom">{{ $t('login.link1') }}</router-link></div>
+        <div class="container-buttom-text">{{ $t('login.msg2') }} <router-link to="verify" class="link-bottom">{{ $t('login.link2') }}</router-link></div>
     </b-container>
 </template>
 <script>
+import { required } from 'vuelidate/lib/validators'
+
 export default {
   name: 'LoginContainer',
   data () {
     return {
       username: null,
-      password: null
+      password: null,
+      loginPressed: false
     }
   },
   mounted () {
@@ -28,8 +33,13 @@ export default {
   methods: {
     login () {
       // AUTHENTICATION AND LOGIN
+      this.loginPressed = true
       console.log('loging ...')
     }
+  },
+  validations: {
+    username: { required },
+    password: { required }
   }
 }
 </script>
@@ -88,5 +98,11 @@ export default {
  }
  .link-bottom{
   color: black;
+ }
+ .error{
+   margin-top: 5px;
+  text-align: center;
+  font-size: 12px;
+  color: #f44336;
  }
 </style>

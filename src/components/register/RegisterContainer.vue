@@ -2,14 +2,22 @@
     <b-container fluid class="container-register-inner">
       <div>
         <b-container>
-          <div class="title-register">Regístrate</div>
-          <div class="subtitle-register">Ingresa tus datos</div>
+          <div class="title-register">{{ $t('register.title') }}</div>
+          <div class="subtitle-register">{{ $t('register.subtitle') }}</div>
           <form action="" @submit.prevent="register()">
-            <div><input type="text" class="input-text" v-model="name" placeholder="Nombre"></div>
-            <div><input type="text" class="input-text" v-model="user" placeholder="Usuario"></div>
-            <div><input type="text" class="input-text" v-model="email" placeholder="Correo electronico"></div>
-            <div><input type="text" class="input-text" v-model="password" placeholder="contrasena"></div>
-            <div><input type="text" class="input-text" v-model="confirmPassword" placeholder="Confirmar contrasena"></div>
+            <div><input type="text" class="input-text" v-model="name" :placeholder="$t('register.form.name')"></div>
+            <div class="error" v-if="!$v.name.required && registerPressed">{{ $t('register.form.nameRequired') }}</div>
+            <div><input type="text" class="input-text" v-model="user" :placeholder="$t('register.form.user')"></div>
+            <div class="error" v-if="!$v.user.required && registerPressed">{{ $t('register.form.userRequired') }}</div>
+            <div><input type="text" class="input-text" v-model="email" :placeholder="$t('register.form.email')"></div>
+            <div class="error" v-if="!$v.email.required && registerPressed">{{ $t('register.form.emailRequired') }}</div>
+            <div class="error" v-if="!$v.email.email && registerPressed">{{ $t('register.form.emailValid') }}</div>
+            <div><input type="password" class="input-text" v-model="password" :placeholder="$t('register.form.password')"></div>
+            <!-- <div class="error" v-if="!$v.password.required && registerPressed">Password ir required</div> -->
+            <div class="error" v-if="!goodPassword && registerPressed">{{ $t('register.form.goodPassword1') }} <br> {{ $t('register.form.goodPassword2') }}</div>
+            <div><input type="password" class="input-text" v-model="confirmPassword" :placeholder="$t('register.form.confirmPassword')"></div>
+            <!-- <div class="error" v-if="!$v.confirmPassword.required && registerPressed">Password Confirmation is required</div> -->
+            <div class="error" v-if="!$v.confirmPassword.sameAs && registerPressed">{{ $t('register.form.samePassword') }}</div>
             <div>
               <select v-model="countrySelected" class="input-select">
                 <option v-for="(country, key) in countries" v-bind:value="country.value" :key="key">
@@ -17,9 +25,17 @@
                 </option>
               </select>
             </div>
+            <div class="error" v-if="!$v.countrySelected.required && registerPressed">{{ $t('register.form.countryRequired') }}</div>
             <div style="display:flex;">
-              <input type="text" class="input-city" v-model="city" placeholder="Ciudad">
-              <input type="text" class="input-code" v-model="code" placeholder="Codigo">
+              <div style="width:50%">
+                <input type="text" class="input-city" v-model="city" :placeholder="$t('register.form.city')">
+                <div class="error" v-if="!$v.city.required && registerPressed">{{ $t('register.form.cityRequired') }}</div>
+              </div>
+              <div>
+                <input type="text" class="input-code" v-model="code" :placeholder="$t('register.form.code')">
+                <div class="error" v-if="!$v.code.required && registerPressed">{{ $t('register.form.codeRequired') }}</div>
+                <div class="error" v-if="!$v.code.integer && registerPressed">{{ $t('register.form.codeValid') }}</div>
+              </div>
             </div>
             <div>
               <select v-model="timezoneSelected" class="input-select">
@@ -28,15 +44,17 @@
                 </option>
               </select>
             </div>
-            <div><button type="submit" class="button-register">Registrar</button></div>
+            <div class="error" v-if="!$v.timezoneSelected.required && registerPressed">{{ $t('register.form.timezoneRequired') }}</div>
+            <div><button type="submit" class="button-register">{{ $t('register.form.register') }}</button></div>
           </form>
-          <div class="container-bottom-text">Ya tienes una cuenta? <router-link to="login" class="link-login">Ingresa</router-link></div>
+          <div class="container-bottom-text">{{ $t('register.msg1') }} <router-link to="login" class="link-login">{{ $t('register.link1') }}</router-link></div>
         </b-container>
       </div>
     </b-container>
 </template>
 <script>
 import axios from 'axios'
+import { required, email, integer, sameAs } from 'vuelidate/lib/validators'
 
 export default {
   name: 'RegisterContainer',
@@ -53,7 +71,9 @@ export default {
       city: null,
       code: null,
       timezones: [],
-      timezoneSelected: null
+      timezoneSelected: null,
+      registerPressed: false,
+      goodPassword: false
     }
   },
   mounted () {
@@ -71,7 +91,7 @@ export default {
           objCountry.value = country.name
           return objCountry
         })
-        arrayCountryNames.unshift({ text: 'Escoja un pais', value: null })
+        arrayCountryNames.unshift({ text: this.$t('register.form.country'), value: null })
         this.countries = arrayCountryNames
         const arrayTimezones = this.countryData.map((country) => {
           const objTimezone = {}
@@ -79,15 +99,35 @@ export default {
           objTimezone.value = country.timezones[0]
           return objTimezone
         })
-        arrayTimezones.unshift({ text: 'Escoja su zona horaria', value: null })
+        arrayTimezones.unshift({ text: this.$t('register.form.timezone'), value: null })
         this.timezones = arrayTimezones
         console.log('countries data  bringed success ...')
       })
   },
   methods: {
     register () {
+      this.registerPressed = true
       console.log('register user ...')
     }
+  },
+  watch: {
+    password (newValue) {
+      this.goodPassword = newValue.length >= 8 &&
+        /[a-z]/.test(newValue) &&
+        /[A-Z]/.test(newValue) &&
+        /[0-9]/.test(newValue)
+    }
+  },
+  validations: {
+    name: { required },
+    user: { required },
+    email: { required, email },
+    password: { required },
+    confirmPassword: { required, sameAs: sameAs('password') },
+    countrySelected: { required },
+    city: { required },
+    code: { required, integer },
+    timezoneSelected: { required }
   }
 }
 </script>
@@ -107,8 +147,7 @@ export default {
   text-align: center;
   font-size: 16px;
   font-weight: lighter;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .input-text{
   width: 100%;
@@ -117,7 +156,7 @@ export default {
   border-bottom: 1px solid rgb(137, 137, 137);
   font-size: 14px;
   font-weight: 400;
-  padding: 15px 25px;
+  padding: 10px 25px;
 }
 .input-select{
   width: 100%;
@@ -126,10 +165,9 @@ export default {
   border-bottom: 1px solid rgb(137, 137, 137);
   font-size: 14px;
   font-weight: 400;
-  padding: 15px 25px;
+  padding: 10px 25px;
 }
 .input-city{
-  width: 60%;
   margin-right: 10%;
   outline: none;
   border: 0;
@@ -139,7 +177,6 @@ export default {
   padding: 15px 25px;
 }
 .input-code{
-  width: 30%;
   outline: none;
   border: 0;
   border-bottom: 1px solid rgb(137, 137, 137);
@@ -170,5 +207,11 @@ export default {
  }
  .link-login{
   color: black;
+ }
+.error{
+   margin-top: 5px;
+  text-align: center;
+  font-size: 12px;
+  color: #f44336;
  }
 </style>

@@ -4,18 +4,24 @@
         <div class="subtitle-verify">Ingresa tus datos</div>
         <form action="" @submit.prevent="validateCode()">
           <div><input type="text" class="input-text" v-model="username" placeholder="Usuario"></div>
+          <div class="error" v-if="!$v.username.required && verifyPressed">User is required</div>
           <div><input type="text" class="input-text" v-model="code" placeholder="Code"></div>
+          <div class="error" v-if="!$v.code.required && verifyPressed">Postal code is required</div>
+          <div class="error" v-if="!$v.code.integer && verifyPressed">Code is not valid</div>
           <div class="button-container"><button type="submit" class="button-verify">Verificar</button></div>
         </form>
     </b-container>
 </template>
 <script>
+import { required, integer } from 'vuelidate/lib/validators'
+
 export default {
   name: 'VerifyContainer',
   data () {
     return {
       username: null,
-      code: null
+      code: null,
+      verifyPressed: false
     }
   },
   mounted () {
@@ -25,8 +31,13 @@ export default {
   },
   methods: {
     validateCode () {
+      this.verifyPressed = true
       console.log('validating code ...')
     }
+  },
+  validations: {
+    username: { required },
+    code: { required, integer }
   }
 }
 </script>
@@ -77,5 +88,11 @@ export default {
 }
 .button-verify:hover{
  background-color: rgb(3, 189, 177);
+ }
+.error{
+  margin-top: 5px;
+  text-align: center;
+  font-size: 12px;
+  color: #f44336;
  }
 </style>
