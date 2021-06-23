@@ -64,6 +64,18 @@ const messages = {
       },
       msg1: 'Do you already have an account?',
       link1: 'Login'
+    },
+    verify: {
+      title: 'Welcome',
+      subtitle: 'Enter your code',
+      form: {
+        user: 'User',
+        code: 'Code',
+        check: 'Check',
+        userRequired: 'User is requerido',
+        codeRequired: 'Code is required',
+        codeValid: 'The code is not valid'
+      }
     }
   },
   es: {
@@ -126,6 +138,18 @@ const messages = {
       },
       msg1: 'Ya tienes una cuenta?',
       link1: 'Ingresa'
+    },
+    verify: {
+      title: 'Bienvenido',
+      subtitle: 'Ingresa tu codigo',
+      form: {
+        user: 'Usuario',
+        code: 'Codigo',
+        check: 'Verificar',
+        userRequired: 'Usuario es requerido',
+        codeRequired: 'Codigo es requerido',
+        codeValid: 'El codigo no es valido'
+      }
     }
   }
 }

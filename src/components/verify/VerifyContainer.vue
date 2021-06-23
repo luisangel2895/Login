@@ -1,14 +1,14 @@
 <template>
     <b-container fluid class="container-verify-inner">
-        <div class="title-verify">Bienvenido</div>
-        <div class="subtitle-verify">Ingresa tus datos</div>
+        <div class="title-verify">{{ $t('verify.title') }}</div>
+        <div class="subtitle-verify">{{ $t('verify.subtitle') }}</div>
         <form action="" @submit.prevent="validateCode()">
-          <div><input type="text" class="input-text" v-model="username" placeholder="Usuario"></div>
-          <div class="error" v-if="!$v.username.required && verifyPressed">User is required</div>
-          <div><input type="text" class="input-text" v-model="code" placeholder="Code"></div>
-          <div class="error" v-if="!$v.code.required && verifyPressed">Postal code is required</div>
-          <div class="error" v-if="!$v.code.integer && verifyPressed">Code is not valid</div>
-          <div class="button-container"><button type="submit" class="button-verify">Verificar</button></div>
+          <div><input type="text" class="input-text" v-model="username" :placeholder="$t('verify.form.user')"></div>
+          <div class="error" v-if="!$v.username.required && verifyPressed">{{ $t('verify.form.userRequired') }}</div>
+          <div><input type="text" class="input-text" v-model="code" :placeholder="$t('verify.form.code')"></div>
+          <div class="error" v-if="!$v.code.required && verifyPressed">{{ $t('verify.form.codeRequired') }}</div>
+          <div class="error" v-if="!$v.code.integer && verifyPressed">{{ $t('verify.form.codeValid') }}</div>
+          <div class="button-container"><button type="submit" class="button-verify">{{ $t('verify.form.check') }}</button></div>
         </form>
     </b-container>
 </template>
