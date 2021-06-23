@@ -77,8 +77,8 @@ export default {
     }
   },
   mounted () {
-    if (screen.width >= 768) {
-      const heightContainer = window.innerHeight
+    if (window.innerWidth >= 768) {
+      const heightContainer = window.innerHeight - 62
       const $loginContainer = document.querySelector('.container-register-inner')
       $loginContainer.style.height = String(heightContainer) + 'px'
     }

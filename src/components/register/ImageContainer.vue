@@ -7,17 +7,12 @@
 export default {
   name: 'ImageContainer',
   mounted () {
-    if (window.innerHeight >= 937) {
-      const heightContainer = window.innerHeight
+    if (window.innerWidth >= 768) {
+      const heightContainer = window.innerHeight - 62
       const $imageContainer = document.querySelector('.container-register')
       $imageContainer.style.height = String(heightContainer) + 'px'
       const $image = document.querySelector('.image-register')
       $image.style.maxHeight = String(heightContainer) + 'px'
-    } else {
-      const $imageContainer = document.querySelector('.container-register')
-      $imageContainer.style.height = '875px'
-      const $image = document.querySelector('.image-register')
-      $image.style.maxHeight = '875px'
     }
   }
 }

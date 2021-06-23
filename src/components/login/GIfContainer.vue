@@ -7,13 +7,10 @@
 export default {
   name: 'GifContainer',
   mounted () {
-    if (window.innerHeight >= 937) {
-      const heightContainer = window.innerHeight
+    if (window.innerWidth >= 768) {
+      const heightContainer = window.innerHeight - 62
       const $imageContainer = document.querySelector('.container-gift')
       $imageContainer.style.height = String(heightContainer) + 'px'
-    } else {
-      const $imageContainer = document.querySelector('.container-gift')
-      $imageContainer.style.height = '875px'
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <nav-bar></nav-bar>
+    <b-container fluid class="separator"></b-container>
     <router-view/>
     <footer-component></footer-component>
   </div>
@@ -34,5 +35,8 @@ font-family: 'Montserrat', sans-serif;
 }
 ::-webkit-scrollbar-corner {
   background-color: rgb(172, 0, 0);
+}
+.separator{
+  height: 62px;
 }
 </style>
