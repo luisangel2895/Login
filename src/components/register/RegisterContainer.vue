@@ -77,9 +77,11 @@ export default {
     }
   },
   mounted () {
-    const heightContainer = window.innerHeight
-    const $loginContainer = document.querySelector('.container-register-inner')
-    $loginContainer.style.height = String(heightContainer) + 'px'
+    if (screen.width >= 768) {
+      const heightContainer = window.innerHeight
+      const $loginContainer = document.querySelector('.container-register-inner')
+      $loginContainer.style.height = String(heightContainer) + 'px'
+    }
 
     axios
       .get('https://restcountries.eu/rest/v2/all')

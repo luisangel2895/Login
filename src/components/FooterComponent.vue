@@ -3,12 +3,12 @@
         <b-container id="footer-information" fluid>
             <b-container class="footer-container">
                 <b-row>
-                    <b-col class="col-email">
+                    <b-col class="col-email col-nav-cell" cols="12" md="4">
                         <img src="../../public/images/logo.png" class="logo-navbar" style="margin-bottom:30px">
                         <div>Simple, Inteligente</div>
                         <div>sales@isocialcube.com</div>
                     </b-col>
-                    <b-col class="col-info">
+                    <b-col class="col-info col-nav-cell" cols="12" md="4">
                         <div style="margin-bottom:20px;">
                             <div>Av. Benavides 1238, Miraflores, Oficina No. 301</div>
                             <div>Miraflores / Lima - Perú</div>
@@ -20,7 +20,7 @@
                             <div>+1 512 994 1015</div>
                         </div>
                     </b-col>
-                    <b-col class="col-rrss">
+                    <b-col class="col-rrss col-nav-cell" cols="12" md="4">
                         <b-container style="text-align:right;">
                             <div style="margin-bottom:10px; margin-right:50px">Siguenos en:</div>
                             <div>
@@ -79,4 +79,10 @@ export default {
         font-size: 19px;
         margin: 0px 5px;
     }
+@media (max-width: 768px) {
+  .col-nav-cell{
+    text-align: center;
+  }
+}
+
 </style>

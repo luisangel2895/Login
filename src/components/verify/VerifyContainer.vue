@@ -25,9 +25,11 @@ export default {
     }
   },
   mounted () {
-    const heightContainer = window.innerHeight
-    const $registerContainer = document.querySelector('.container-verify-inner')
-    $registerContainer.style.height = String(heightContainer) + 'px'
+    if (screen.width >= 768) {
+      const heightContainer = window.innerHeight
+      const $registerContainer = document.querySelector('.container-verify-inner')
+      $registerContainer.style.height = String(heightContainer) + 'px'
+    }
   },
   methods: {
     validateCode () {

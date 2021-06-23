@@ -1,7 +1,7 @@
 <template>
     <b-container fluid>
         <b-row>
-            <b-col class="col-register"><image-container></image-container></b-col>
+            <b-col class="col-register col-remove"><image-container></image-container></b-col>
             <b-col class="col-register"><register-container></register-container></b-col>
         </b-row>
     </b-container>
@@ -21,5 +21,10 @@ export default {
 <style scoped>
 .col-register{
   padding: 0px;
+}
+@media (max-width: 768px) {
+  .col-remove{
+    display: none;
+  }
 }
 </style>

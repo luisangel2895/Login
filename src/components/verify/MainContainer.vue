@@ -1,7 +1,7 @@
 <template>
     <b-container fluid>
         <b-row>
-            <b-col class="col-login"><gif-container></gif-container></b-col>
+            <b-col class="col-login col-remove"><gif-container></gif-container></b-col>
             <b-col class="col-login"><verify-container></verify-container></b-col>
         </b-row>
     </b-container>
@@ -21,5 +21,10 @@ export default {
 <style scoped>
 .col-login{
   padding: 0px;
+}
+@media (max-width: 768px) {
+  .col-remove{
+    display: none;
+  }
 }
 </style>
