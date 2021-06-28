@@ -55,6 +55,10 @@
 <script>
 import axios from 'axios'
 import { required, email, integer, sameAs } from 'vuelidate/lib/validators'
+/* Import the Amplify Auth API */
+import Amplify, { Auth } from 'aws-amplify'
+import awsconfig from '../../aws-exports'
+Amplify.configure(awsconfig)
 
 export default {
   name: 'RegisterContainer',
@@ -107,9 +111,23 @@ export default {
       })
   },
   methods: {
-    register () {
+    async register () {
       this.registerPressed = true
       console.log('register user ...')
+      // AUTHENTICATION AND LOGIN
+      console.log('loging ...')
+      try {
+        const { user } = await Auth.signUp({
+          username: this.user,
+          password: this.password,
+          attributes: {
+            email: this.email
+          }
+        })
+        console.log(user)
+      } catch (err) {
+        console.log(err)
+      }
     }
   },
   watch: {

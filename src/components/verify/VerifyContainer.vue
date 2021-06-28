@@ -14,6 +14,10 @@
 </template>
 <script>
 import { required, integer } from 'vuelidate/lib/validators'
+/* Import the Amplify Auth API */
+import Amplify, { Auth } from 'aws-amplify'
+import awsconfig from '../../aws-exports'
+Amplify.configure(awsconfig)
 
 export default {
   name: 'VerifyContainer',
@@ -32,9 +36,15 @@ export default {
     }
   },
   methods: {
-    validateCode () {
+    async validateCode () {
       this.verifyPressed = true
       console.log('validating code ...')
+      try {
+        const respConfirm = await Auth.confirmSignUp(this.username, this.code)
+        console.log(respConfirm)
+      } catch (error) {
+        console.log('error confirming sign up', error)
+      }
     }
   },
   validations: {

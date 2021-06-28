@@ -15,7 +15,10 @@
 </template>
 <script>
 import { required } from 'vuelidate/lib/validators'
-
+/* Import the Amplify Auth API */
+import Amplify, { Auth } from 'aws-amplify'
+import awsconfig from '../../aws-exports'
+Amplify.configure(awsconfig)
 export default {
   name: 'LoginContainer',
   data () {
@@ -25,7 +28,7 @@ export default {
       loginPressed: false
     }
   },
-  mounted () {
+  async mounted () {
     if (window.innerWidth >= 768) {
       const heightContainer = window.innerHeight - 62
       const $registerContainer = document.querySelector('.container-login-inner')
@@ -33,10 +36,40 @@ export default {
     }
   },
   methods: {
-    login () {
+    async register () {
+      // AUTHENTICATION AND LOGIN
+      console.log('loging ...')
+      try {
+        const { user } = await Auth.signUp({
+          username: 'MURRUTIA_10',
+          password: 'JeronimoU1234567891025',
+          attributes: {
+            email: 'javichonarco7@gmail.com'
+          }
+        })
+        console.log(user)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async login () {
       // AUTHENTICATION AND LOGIN
       this.loginPressed = true
-      console.log('loging ...')
+      console.log(this.username)
+      console.log(this.password)
+      try {
+        const user = await Auth.signIn(this.username, this.password)
+        console.log(user)
+      } catch (error) {
+        console.log('error signing in', error)
+      }
+    },
+    async corfirm () {
+      try {
+        await Auth.confirmSignUp('MURRUTIA_10', '698737')
+      } catch (error) {
+        console.log('error confirming sign up', error)
+      }
     }
   },
   validations: {
