@@ -58,6 +58,7 @@ import { required, email, integer, sameAs } from 'vuelidate/lib/validators'
 /* Import the Amplify Auth API */
 import Amplify, { Auth } from 'aws-amplify'
 import awsconfig from '../../aws-exports'
+import Swal from 'sweetalert2'
 Amplify.configure(awsconfig)
 
 export default {
@@ -124,8 +125,27 @@ export default {
             email: this.email
           }
         })
+        Swal.fire({
+          title: 'Se registro correctamente el usuario.',
+          icon: 'success',
+          confirmButtonText: 'Continuar'
+        })
         console.log(user)
+        window.location.href = '/verify'
       } catch (err) {
+        if (err.code === '') {
+          Swal.fire({
+            title: 'Usuario o contraseña incorrecto.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          })
+        } else {
+          Swal.fire({
+            title: 'Ocurrio un error al iniciar sesión.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          })
+        }
         console.log(err)
       }
     }

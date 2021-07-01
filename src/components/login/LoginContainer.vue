@@ -18,6 +18,7 @@ import { required } from 'vuelidate/lib/validators'
 /* Import the Amplify Auth API */
 import Amplify, { Auth } from 'aws-amplify'
 import awsconfig from '../../aws-exports'
+import Swal from 'sweetalert2'
 Amplify.configure(awsconfig)
 export default {
   name: 'LoginContainer',
@@ -59,9 +60,48 @@ export default {
       console.log(this.password)
       try {
         const user = await Auth.signIn(this.username, this.password)
+        /* Swal.fire({
+          title: 'Se registro correctamente el usuario.',
+          icon: 'success',
+          confirmButtonText: 'Continuar'
+        }) */
         console.log(user)
+        const respSession = await Auth.currentSession()
+        const accessToken = respSession.getAccessToken()
+        const jwt = accessToken.getJwtToken()
+        // const parseJsonAccessToken = JSON.stringify(accessToken)
+        const payload = accessToken.payload
+        const clientId = payload.client_id
+        // You can print them to see the full objects
+        console.log('accessToken: ', accessToken)
+        console.log('payload: ', payload)
+        console.log('clientId: ', clientId)
+        // console.log(`myJwt: ${jwt}`)
+        console.log('el token : ', jwt)
+        // console.log('el clientId : ', clientId)
+
+        // window.location.href = '/profile'
       } catch (error) {
         console.log('error signing in', error)
+        if (error.code === 'NotAuthorizedException') {
+          Swal.fire({
+            title: 'Usuario o contraseña incorrecto.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          })
+        } else if (error.code === 's') {
+          Swal.fire({
+            title: 'Ocurrio un error al loguearse.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          })
+        } else {
+          Swal.fire({
+            title: 'Ocurrio un error al iniciar sesión.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          })
+        }
       }
     },
     async corfirm () {
