@@ -80,7 +80,7 @@ export default {
         console.log('el token : ', jwt)
         // console.log('el clientId : ', clientId)
 
-        // window.location.href = '/profile'
+        window.location.href = '/profile'
       } catch (error) {
         console.log('error signing in', error)
         if (error.code === 'NotAuthorizedException') {
