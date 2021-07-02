@@ -42,7 +42,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
 .payment {
   height: 445px;
   position: relative;

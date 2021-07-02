@@ -1809,7 +1809,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
 .listening {
   font-size: 12px !important;
   height: 445px;
