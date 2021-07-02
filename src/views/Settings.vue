@@ -37,6 +37,8 @@ export default {
 .settings {
   width: 1359px;
   margin: auto;
+  font-family: 'Oxygen';
+  font-size: 12px !important;
 }
 .isctitle {
   font-size: 18px;

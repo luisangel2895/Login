@@ -52,10 +52,13 @@ export default {
 }
 </script>
 
-<style>
+<style >
 .profile {
   width: 1359px;
   margin: auto;
+  text-align: center;
+  font-family: 'Oxygen';
+  font-size: 12px !important;
 }
 .isctitle {
   font-size: 18px;
