@@ -44,157 +44,72 @@
           </div>
           <div class="clear"></div>
           <div id="bncfb" v-if="selectbench == 'fb'">
-            <div class="bncrow">
+            <div v-for="item in benchs" :key="item.id">
+              <div class="bncrow" v-if="item.rss=='facebook'">
               <div class="browt">
                 <img
-                  src="https://graph.facebook.com/137227012964529/picture?type=large"
-                />NORKY'S
+                  :src="item.image"
+                />{{item.name}}
               </div>
               <div class="browi">
                 <i onclick="pc_del_acc(this,9656);" class="fa fa-trash"></i>
               </div>
-              <div class="browd">Date created: 24/01/2021</div>
+              <div class="browd">{{'Date created: ' +item.date}}</div>
               <div class="clear"></div>
-            </div>
-
-            <div class="bncrow">
-              <div class="browt">
-                <img
-                  src="https://graph.facebook.com/1310102402390031/picture?type=large"
-                />Ricky Tacna
               </div>
-              <div class="browi">
-                <i onclick="pc_del_acc(this,9725);" class="fa fa-trash"></i>
-              </div>
-              <div class="browd">Date created: 14/04/2021</div>
-              <div class="clear"></div>
-            </div>
-
-            <div class="bncrow">
-              <div class="browt">
-                <img
-                  src="https://graph.facebook.com/360684794005493/picture?type=large"
-                />Sandwiches Carlitos
-              </div>
-              <div class="browi">
-                <i onclick="pc_del_acc(this,9726);" class="fa fa-trash"></i>
-              </div>
-              <div class="browd">Date created: 14/04/2021</div>
-              <div class="clear"></div>
-            </div>
-
-            <div class="bncrow">
-              <div class="browt">
-                <img
-                  src="https://graph.facebook.com/208751591037/picture?type=large"
-                />McDonald's Guatemala
-              </div>
-              <div class="browi">
-                <i onclick="pc_del_acc(this,9733);" class="fa fa-trash"></i>
-              </div>
-              <div class="browd">Date created: 15/04/2021</div>
-              <div class="clear"></div>
             </div>
             <div class="clear"></div>
           </div>
           <div id="bncyt" v-if="selectbench == 'yt'">
-            <div class="bncrow">
+            <div v-for="item in benchs" :key="item.id">
+              <div class="bncrow" v-if="item.rss=='youtube'">
               <div class="browt">
                 <img
-                  src="https://yt3.ggpht.com/ytc/AAUvwnjGSlDWa0g_DBPOtf0Y6f5-xMiTTrLwR4Gbfnnpyg=s240-c-k-c0x00ffffff-no-rj"
-                />Werevertumorro
+                  :src="item.image"
+                />{{item.name}}
               </div>
               <div class="browi">
-                <i onclick="pc_del_acc(this,9763);" class="fa fa-trash"></i>
+                <i onclick="pc_del_acc(this,9656);" class="fa fa-trash"></i>
               </div>
-              <div class="browd">Date created: 27/05/2021</div>
+              <div class="browd">{{'Date created: ' +item.date}}</div>
               <div class="clear"></div>
-            </div>
-
-            <div class="bncrow">
-              <div class="browt">
-                <img
-                  src="https://yt3.ggpht.com/ytc/AKedOLQM5I1bLmUuzLqEXcj1BwcOKRdZ3RiH5geNiEuw=s240-c-k-c0x00ffffff-no-rj"
-                />Ruth Jacinto
               </div>
-              <div class="browi">
-                <i onclick="pc_del_acc(this,9765);" class="fa fa-trash"></i>
-              </div>
-              <div class="browd">Date created: 30/06/2021</div>
-              <div class="clear"></div>
             </div>
-
             <div class="clear"></div>
           </div>
           <div id="bnctw" v-if="selectbench == 'twi'">
-            <div class="bncrow">
+            <div v-for="item in benchs" :key="item.id">
+              <div class="bncrow" v-if="item.rss=='twitter'">
               <div class="browt">
                 <img
-                  src="https://pbs.twimg.com/profile_images/1033388433794850823/ds1jnTl3.jpg"
-                />jonathan avila
+                  :src="item.image"
+                />{{item.name}}
               </div>
               <div class="browi">
-                <i onclick="pc_del_acc(this,9738);" class="fa fa-trash"></i>
+                <i onclick="pc_del_acc(this,9656);" class="fa fa-trash"></i>
               </div>
-              <div class="browd">Date created: 15/04/2021</div>
+              <div class="browd">{{'Date created: ' +item.date}}</div>
               <div class="clear"></div>
+              </div>
             </div>
 
             <div class="clear"></div>
           </div>
           <div id="bncin" v-if="selectbench == 'ins'">
-            <div class="bncrow">
+            <div v-for="item in benchs" :key="item.id">
+              <div class="bncrow" v-if="item.rss=='instagram'">
               <div class="browt">
                 <img
-                  src="https://scontent-iad3-1.xx.fbcdn.net/v/t51.2885-15/13743258_1716321305295888_1751396553_a.jpg?_nc_cat=1&amp;ccb=1-3&amp;_nc_sid=86c713&amp;_nc_ohc=9EdV9-RC0gMAX_vA67-&amp;_nc_ht=scontent-iad3-1.xx&amp;oh=c729f1d11cfe4b7d711c41ab4cca34f0&amp;oe=60DF87AE"
-                />McDonald's Perú
+                  :src="item.image"
+                />{{item.name}}
               </div>
               <div class="browi">
-                <i onclick="pc_del_acc(this,9720);" class="fa fa-trash"></i>
+                <i onclick="pc_del_acc(this,9656);" class="fa fa-trash"></i>
               </div>
-              <div class="browd">Date created: 07/04/2021</div>
+              <div class="browd">{{'Date created: ' +item.date}}</div>
               <div class="clear"></div>
+              </div>
             </div>
-
-            <div class="bncrow">
-              <div class="browt">
-                <img
-                  src="https://scontent-iad3-1.xx.fbcdn.net/v/t51.2885-15/90091324_559430254680857_7412747651747151872_n.jpg?_nc_cat=109&amp;ccb=1-3&amp;_nc_sid=86c713&amp;_nc_ohc=lX7mL9qcVL0AX8t2AMx&amp;_nc_ht=scontent-iad3-1.xx&amp;oh=531750416b61c95bbdd5ccdff6f5e3d2&amp;oe=60DE3211"
-                />Caranegra Oficial Tacna
-              </div>
-              <div class="browi">
-                <i onclick="pc_del_acc(this,9721);" class="fa fa-trash"></i>
-              </div>
-              <div class="browd">Date created: 07/04/2021</div>
-              <div class="clear"></div>
-            </div>
-
-            <div class="bncrow">
-              <div class="browt">
-                <img
-                  src="https://scontent-iad3-1.xx.fbcdn.net/v/t51.2885-15/103470437_258712108740755_7062914014190129714_n.jpg?_nc_cat=105&amp;ccb=1-3&amp;_nc_sid=86c713&amp;_nc_ohc=d5ia9grWPLAAX-o09CH&amp;_nc_ht=scontent-iad3-1.xx&amp;oh=13095bfa0686989899a008c6bde818ec&amp;oe=60DF76FC"
-                />Ricky Tacna
-              </div>
-              <div class="browi">
-                <i onclick="pc_del_acc(this,9722);" class="fa fa-trash"></i>
-              </div>
-              <div class="browd">Date created: 07/04/2021</div>
-              <div class="clear"></div>
-            </div>
-
-            <div class="bncrow">
-              <div class="browt">
-                <img
-                  src="https://scontent-iad3-1.xx.fbcdn.net/v/t51.2885-15/171264888_489570418841923_6117754987811924264_n.jpg?_nc_cat=1&amp;ccb=1-3&amp;_nc_sid=86c713&amp;_nc_ohc=amEx_QJYWwgAX9Crv_j&amp;_nc_ht=scontent-iad3-1.xx&amp;oh=38f46e5c71d0528972d23a681848bacd&amp;oe=60DF6587"
-                />La República
-              </div>
-              <div class="browi">
-                <i onclick="pc_del_acc(this,9724);" class="fa fa-trash"></i>
-              </div>
-              <div class="browd">Date created: 12/04/2021</div>
-              <div class="clear"></div>
-            </div>
-
             <div class="clear"></div>
           </div>
         </div>
@@ -209,7 +124,51 @@ export default {
   name: 'Benchmark',
   data () {
     return {
-      selectbench: 'fb'
+      selectbench: 'fb',
+      benchs: [
+        {
+          id: 0,
+          name: 'PERU CARAJOf',
+          image: 'https://graph.facebook.com/137227012964529/picture?type=large',
+          rss: 'facebook',
+          date: '24/01/2021'
+        },
+        {
+          id: 1,
+          name: 'PERUsitopt',
+          image: 'https://graph.facebook.com/137227012964529/picture?type=large',
+          rss: 'twitter',
+          date: '24/01/2021'
+        },
+        {
+          id: 2,
+          name: 'PERU CARAJOf',
+          image: 'https://graph.facebook.com/137227012964529/picture?type=large',
+          rss: 'facebook',
+          date: '24/01/2021'
+        },
+        {
+          id: 3,
+          name: 'PERUsitopt',
+          image: 'https://graph.facebook.com/137227012964529/picture?type=large',
+          rss: 'twitter',
+          date: '24/01/2021'
+        },
+        {
+          id: 4,
+          name: 'PERU CARAJOy',
+          image: 'https://graph.facebook.com/137227012964529/picture?type=large',
+          rss: 'youtube',
+          date: '24/01/2021'
+        },
+        {
+          id: 5,
+          name: 'PERUsitopi',
+          image: 'https://graph.facebook.com/137227012964529/picture?type=large',
+          rss: 'instagram',
+          date: '24/01/2021'
+        }
+      ]
     }
   }
 }
@@ -283,7 +242,6 @@ export default {
 .bncact {
   background: white !important;
 }
-
 #bncfb,
 #bncyt,
 #bnctw,
@@ -307,7 +265,6 @@ export default {
   margin-right: 10px;
   border-radius: 15px;
 }
-
 .browi i {
   cursor: pointer;
 }

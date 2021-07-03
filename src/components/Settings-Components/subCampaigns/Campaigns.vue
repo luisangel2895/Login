@@ -39,220 +39,29 @@
             overflow-x: hidden;
           "
         >
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">demo</div>
-            <div class="pacac"></div>
+          <div v-for="item in campaigns" :key="item.id" class="pacarow" style="border-bottom: 1px solid #f3f4f7">
+            <div class="pacat cotop">{{item.name}}</div>
+            <div class="pacac" v-if="item.redsocials">
+              <div v-for="itrss in item.redsocials" :key="itrss.idrss">
+                <i  v-if="itrss.rsss=='twitter'" class="fab twco fa-twitter"></i>
+              </div>
+              <div v-for="itrss in item.redsocials" :key="itrss.idrss">
+                <i v-if="itrss.rsss=='facebook'" class="fab fbco fa-facebook"></i>
+              </div>
+              <div v-for="itrss in item.redsocials" :key="itrss.idrss">
+                <i v-if="itrss.rsss=='instagram'" class="fab inco fa-instagram"></i>
+              </div>
+              <div v-for="itrss in item.redsocials" :key="itrss.idrss">
+                <i v-if="itrss.rsss=='youtube'" class="fab ytco fa-youtube"></i>
+              </div>
+            </div>
             <div class="pacai">
               <i class="fa fa-trash" onclick="pc_del_camp(this,1775)"></i>
             </div>
             <div class="pacai">
               <i class="fa fa-edit" onclick="return camp_edit(1775);"></i>
             </div>
-            <div class="pacad">Date Start: 01/06/2021</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">Navidad</div>
-            <div class="pacac">
-              <i class="fab twco fa-twitter"></i
-              ><i class="fab fbco fa-facebook"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,1774)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(1774);"></i>
-            </div>
-            <div class="pacad">Date Start: 09/06/2021</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">otoño 2021</div>
-            <div class="pacac"><i class="fab twco fa-twitter"></i></div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,1760)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(1760);"></i>
-            </div>
-            <div class="pacad">Date Start: 20/03/2021</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">sadf</div>
-            <div class="pacac"></div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,1772)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(1772);"></i>
-            </div>
-            <div class="pacad">Date Start: 01/05/2021</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">demo</div>
-            <div class="pacac"></div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,1771)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(1771);"></i>
-            </div>
-            <div class="pacad">Date Start: 08/05/2021</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">Semana Santa</div>
-            <div class="pacac"></div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,1756)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(1756);"></i>
-            </div>
-            <div class="pacad">Date Start: 15/03/2021</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">Promoción</div>
-            <div class="pacac">
-              <i class="fab fbco fa-facebook"></i
-              ><i class="fab twco fa-twitter"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,1745)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(1745);"></i>
-            </div>
-            <div class="pacad">Date Start: 02/02/2021</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">vacaciones</div>
-            <div class="pacac">
-              <i class="fab fbco fa-facebook"></i
-              ><i class="fab twco fa-twitter"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,1742)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(1742);"></i>
-            </div>
-            <div class="pacad">Date Start: 01/01/2021</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">Demo Carolina</div>
-            <div class="pacac"></div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,325)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(325);"></i>
-            </div>
-            <div class="pacad">Date Start: 01/08/2020</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">28 de julio</div>
-            <div class="pacac"></div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,323)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(323);"></i>
-            </div>
-            <div class="pacad">Date Start: 19/07/2020</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">Campaña Dia de la Madre</div>
-            <div class="pacac">
-              <i class="fab fbco fa-facebook"></i
-              ><i class="fab twco fa-twitter"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,298)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(298);"></i>
-            </div>
-            <div class="pacad">Date Start: 30/04/2020</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">Coronavirus Conciencia</div>
-            <div class="pacac"><i class="fab fbco fa-facebook"></i></div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,302)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(302);"></i>
-            </div>
-            <div class="pacad">Date Start: 25/04/2020</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">Campaña Escolar 2020</div>
-            <div class="pacac">
-              <i class="fab twco fa-twitter"></i
-              ><i class="fab fbco fa-facebook"></i
-              ><i class="fab inco fa-instagram"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,268)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(268);"></i>
-            </div>
-            <div class="pacad">Date Start: 13/02/2020</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">Penetracion al Mercado</div>
-            <div class="pacac">
-              <i class="fab twco fa-twitter"></i
-              ><i class="fab fbco fa-facebook"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,269)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(269);"></i>
-            </div>
-            <div class="pacad">Date Start: 13/02/2020</div>
-            <div class="clear"></div>
-          </div>
-
-          <div class="pacarow" style="border-bottom: 1px solid #f3f4f7">
-            <div class="pacat cotop">Campaña Escolar (MV)</div>
-            <div class="pacac">
-              <i class="fab fbco fa-facebook"></i
-              ><i class="fab twco fa-twitter"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-trash" onclick="pc_del_camp(this,274)"></i>
-            </div>
-            <div class="pacai">
-              <i class="fa fa-edit" onclick="return camp_edit(274);"></i>
-            </div>
-            <div class="pacad">Date Start: 18/02/2020</div>
+            <div class="pacad">{{'Date Start:'+ item.datestart}}</div>
             <div class="clear"></div>
           </div>
         </div>
@@ -263,7 +72,130 @@
 
 <script>
 export default {
-  name: 'Campaigns'
+  name: 'Campaigns',
+  data () {
+    return {
+      campaigns: [
+        {
+          id: 0,
+          name: 'DEMO',
+          redsocials: [
+            {
+              idrss: 10,
+              rsss: 'facebook'
+            },
+            {
+              idrss: 11,
+              rsss: 'facebook'
+            }
+          ],
+          datestart: '01/06/2021'
+        },
+        {
+          id: 1,
+          name: 'das',
+          redsocials: [
+            {
+              idrss: 10,
+              rsss: 'youtube'
+            },
+            {
+              idrss: 11,
+              rsss: 'youtube'
+            },
+            {
+              idrss: 11,
+              rsss: 'facebook'
+            },
+            {
+              idrss: 11,
+              rsss: 'instagram'
+            },
+            {
+              idrss: 11,
+              rsss: 'twitter'
+            }
+          ],
+          datestart: '01/06/2021'
+        },
+        {
+          id: 2,
+          name: 'lomo',
+          redsocials: [
+            {
+              idrss: 10,
+              rsss: 'twitter'
+            },
+            {
+              idrss: 11,
+              rsss: 'instagram'
+            }
+          ],
+          datestart: '01/06/2021'
+        },
+        {
+          id: 3,
+          name: 'KAKASHI',
+          redsocials: [
+            {
+              idrss: 10,
+              rsss: 'facebook'
+            },
+            {
+              idrss: 11,
+              rsss: 'facebook'
+            }
+          ],
+          datestart: '01/06/2021'
+        },
+        {
+          id: 4,
+          name: 'PERU',
+          redsocials: [
+            {
+              idrss: 10,
+              rsss: 'facebook'
+            },
+            {
+              idrss: 11,
+              rsss: 'facebook'
+            }
+          ],
+          datestart: '01/06/2021'
+        },
+        {
+          id: 5,
+          name: 'PADULA',
+          redsocials: [
+            {
+              idrss: 10,
+              rsss: 'facebook'
+            },
+            {
+              idrss: 11,
+              rsss: 'facebook'
+            }
+          ],
+          datestart: '01/06/2021'
+        },
+        {
+          id: 6,
+          name: 'JHOSE SE',
+          redsocials: [
+            {
+              idrss: 10,
+              rsss: 'facebook'
+            },
+            {
+              idrss: 11,
+              rsss: 'facebook'
+            }
+          ],
+          datestart: '01/06/2021'
+        }
+      ]
+    }
+  }
 }
 </script>
 
@@ -368,5 +300,8 @@ export default {
 .pacac i {
   font-size: 16px;
   margin-right: 10px;
+}
+.pacac div{
+  float: left;
 }
 </style>
