@@ -37,7 +37,7 @@ export default {
 .settings {
   width: 1359px;
   margin: auto;
-  font-family: 'Oxygen';
+  font-family: 'Oxygen', sans-serif;
   font-size: 12px !important;
 }
 .isctitle {
