@@ -125,13 +125,28 @@ export default {
             email: this.email
           }
         })
+        const userId = user.pool.clientId
+        console.log(user)
+        console.log(userId)
+        const dataSendSave = {}
+        dataSendSave.ID_USUARIO = userId
+        dataSendSave.DSC_USERNAME = this.user
+        dataSendSave.DSC_NOMBRES = this.name
+        dataSendSave.DSC_EMAIL = this.email
+        console.log(dataSendSave)
+        dataSendSave.DSC_APELLIDOS = this.user
+        const respSave = await axios.post('http://localhost:3000/user/register', dataSendSave)
+        console.log(respSave)
         Swal.fire({
           title: 'Se registro correctamente el usuario.',
           icon: 'success',
           confirmButtonText: 'Continuar'
+        }).then(result => {
+          if (result.dismiss) {
+            window.location.href = '/verify'
+          }
         })
         console.log(user)
-        window.location.href = '/verify'
       } catch (err) {
         if (err.code === '') {
           Swal.fire({

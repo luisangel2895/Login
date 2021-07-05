@@ -25,9 +25,9 @@
           overflow-x: hidden;
         "
       >
-        <div class="pcusrow" id="iduser_216">
-          <div class="pcusn">ISC EXAMPLE</div>
-          <div class="pcusu">isc_examples</div>
+        <div class="pcusrow"  v-for="(timezone, key) in arrListUsers" v-bind:value="timezone.value" :key="key">
+          <div class="pcusn">{{ timezone.DSC_NOMBRES }}</div>
+          <div class="pcusu">{{ timezone.DSC_USERNAME }}</div>
           <div class="pcusl">English</div>
           <div class="pcuss"><span class="cotop">Active</span></div>
           <div class="pcusd">25/06/2021</div>
@@ -41,8 +41,21 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: 'User'
+  name: 'User',
+  async mounted () {
+    const respListUsers = await axios.get('http://localhost:3000/user/listUsers')
+    console.log(respListUsers)
+    console.log(respListUsers.data)
+    this.arrListUsers = respListUsers.data.list
+    console.log(this.arrListUsers)
+  },
+  data () {
+    return {
+      arrListUsers: null
+    }
+  }
 }
 </script>
 
