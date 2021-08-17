@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav-bar></nav-bar>
-    <b-container fluid class="separator"></b-container>
+    <b-container fluid class="separator" style="background-color: black;"></b-container>
     <router-view/>
     <footer-component></footer-component>
   </div>
@@ -21,7 +21,8 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400&display=swap');
 #app{
-font-family: 'Montserrat', sans-serif;
+font-family: 'Montserrat', sans-serif, 'Oxygen';
+background-color: #d9dddd;
 }
 ::-webkit-scrollbar {
   width: 12px;

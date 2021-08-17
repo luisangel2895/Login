@@ -3,16 +3,16 @@
     <div id="kmprofile" class="kmdiv" style="padding-top: 40px">
       <div class="alft" style="float: left; width: 190px">
         <div class="minipark" style="text-align: left">Add profile</div>
-        <div class="fbbg confcont" onclick="open_facebook_allow(11);">
+        <div class="fbbg confcont" @click="openDialogLogin('facebook')">
           <i class="fab fa-facebook facebook-setting"></i>Connect
         </div>
-        <div class="twbg confcont" onclick="open_twitter_allow(11);">
+        <div class="twbg confcont" @click="openDialogLogin('twitter')">
           <i class="fab fa-twitter twitter-setting"></i>Connect
         </div>
-        <div class="inbg confcont" onclick="open_instagram_add(11);">
+        <div class="inbg confcont" @click="openDialogLogin('instagram')">
           <i class="fab fa-instagram instagram-setting"></i>Connect
         </div>
-        <div class="ytbg confcont" onclick="open_youtube_allow(11);">
+        <div class="ytbg confcont" @click="openDialogLogin('youtube')">
           <i class="fab fa-youtube youtube-setting"></i>Connect
         </div>
       </div>
@@ -30,35 +30,49 @@
           padding: 3px;
         "
       >
-        <div v-for="item in profiles" :key="item.id" class="paconrow">
-          <div :class="['paconb' ,item.rss == 'facebook' ? 'fbbg' : '',item.rss == 'twitter' ? 'twbg' : '',item.rss == 'youtube' ? 'ytbg' : '',item.rss == 'instagram' ? 'inbg' : '']"></div>
+        <div v-for="item in arrSocialProfiles" :key="item.id" class="paconrow">
+          <div :class="['paconb' ,item.id_red_social == '1' ? 'fbbg' : '',item.id_red_social == '2' ? 'twbg' : '',item.id_red_social == '3' ? 'ytbg' : '',item.id_red_social == '4' ? 'inbg' : '']"></div>
           <div class="pacont">
             <img
-              :src="item.image"
-            /><i v-if="item.rss=='facebook'" class="fab fbco fa-facebook"></i>
-            <i v-if="item.rss=='twitter'" class="fab twco fa-twitter"></i>
-            <i v-if="item.rss=='instagram'" class="fab inco fa-instagram"></i>
-            <i v-if="item.rss=='youtube'" class="fab ytco fa-youtube"></i>
-            {{item.name}}
+              :src="item.dsc_logo"
+            /><i v-if="item.id_red_social=='1'" class="fab fbco fa-facebook"></i>
+            <i v-if="item.id_red_social=='2'" class="fab twco fa-twitter"></i>
+            <i v-if="item.id_red_social=='3'" class="fab inco fa-instagram"></i>
+            <i v-if="item.id_red_social=='4'" class="fab ytco fa-youtube"></i>
+            {{item.nom_usuario_redsocial}}
           </div>
           <div class="paconi">
             <i class="fa fa-trash" onclick="pc_del_acc(this,5525);"></i>
           </div>
-          <div class="pacond">{{'Date created:'+ item.date}}</div>
+          <div class="pacond">{{'Date created:'+ getFechaFormat(item.fec_creacion)}}</div>
           <div class="clear"></div>
         </div>
 
       </div>
       <div class="clear"></div>
     </div>
+    <b-modal ref="modal-addAccount" no-close-on-backdrop v-model="modalAddAccount" size="lg" header-class="border-0 pr-5" header-close-variant="primary" hide-footer>
+      <add-account-modal :redSocial="redSocialText"/>
+    </b-modal>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import endpoint from '../../../config'
+import addAccountModal from '../modalAddAccount/addAccountModal'
 export default {
   name: 'SocialProfile',
+  components: {
+    addAccountModal
+  },
+  async mounted () {
+    await this.getSocialProfiles()
+  },
   data () {
     return {
+      redSocialText: '',
+      ruta: endpoint.endpoint,
       profiles: [
         {
           id: 1,
@@ -88,7 +102,58 @@ export default {
           rss: 'instagram',
           date: '13/02/2020'
         }
-      ]
+      ],
+      arrSocialProfiles: [],
+      arrBenchmark: []
+    }
+  },
+  methods: {
+    showModal () {
+      this.$refs['modal-addAccount'].show()
+    },
+    hideModal () {
+      this.$refs['modal-addAccount'].hide()
+    },
+    async getSocialProfiles () {
+      try {
+        const respListSocialProfiles = await axios.get(this.ruta + 'monitor/getSocialProfiles')
+        console.log(respListSocialProfiles)
+        console.log(respListSocialProfiles.data)
+        this.arrSocialProfiles = respListSocialProfiles.data.list
+      } catch (error) {
+        console.log('el error: ', error)
+      }
+    },
+    getFechaFormat (fecha) {
+      try {
+        console.log('la fecha: ', fecha)
+        const fechaFormat = new Date(fecha)
+        fechaFormat.setHours(fechaFormat.getHours() + 5)
+        const respFecha = fechaFormat.getDay() + '/' + fechaFormat.getMonth() + '/' + fechaFormat.getFullYear() + ' ' + fechaFormat.getHours() + ':' + fechaFormat.getMinutes()
+        return respFecha
+      } catch (error) {
+        console.error('error en fecha: ', error)
+        return 'Sin fecha'
+      }
+    },
+    openDialogLogin (socialNetwork) {
+      this.redSocialText = socialNetwork
+      this.showModal()
+      /* const w = 680
+      const h = 830
+      const left = screen.width / 2 - w / 2
+      const top = screen.height / 2 - h / 2
+      return window.open(socialNetwork === 'instagram' ? `http://localhost:3000/api/v1/facebook/auth/${socialNetwork}` : `http://localhost:3000/api/v1/${socialNetwork}/auth`,
+        '_blank',
+        'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
+          w +
+          ', height=' +
+          h +
+          ', top=' +
+          top +
+          ', left=' +
+          left
+      ) */
     }
   }
 }

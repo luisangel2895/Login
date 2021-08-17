@@ -17,6 +17,7 @@ import { required, integer } from 'vuelidate/lib/validators'
 /* Import the Amplify Auth API */
 import Amplify, { Auth } from 'aws-amplify'
 import awsconfig from '../../aws-exports'
+import Swal from 'sweetalert2'
 Amplify.configure(awsconfig)
 
 export default {
@@ -42,8 +43,22 @@ export default {
       try {
         const respConfirm = await Auth.confirmSignUp(this.username, this.code)
         console.log(respConfirm)
+        Swal.fire({
+          title: 'Se realizó correctamente la verificación del usuario.',
+          icon: 'success',
+          confirmButtonText: 'Continuar'
+        }).then(result => {
+          if (!result.dismiss) {
+            window.location.href = 'http://isc-overview-monitor.s3-website-us-east-1.amazonaws.com/isc-login'
+          }
+        })
       } catch (error) {
         console.log('error confirming sign up', error)
+        Swal.fire({
+          title: 'Ocurrió un error al realizar la verificación.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        })
       }
     }
   },

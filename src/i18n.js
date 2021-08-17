@@ -18,7 +18,7 @@ const messages = {
       },
       contact: 'Contact',
       login: 'Login',
-      register: 'Regiser'
+      register: 'Register'
     },
     login: {
       title: 'Welcome',

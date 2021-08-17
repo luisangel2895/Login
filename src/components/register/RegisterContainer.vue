@@ -59,12 +59,14 @@ import { required, email, integer, sameAs } from 'vuelidate/lib/validators'
 import Amplify, { Auth } from 'aws-amplify'
 import awsconfig from '../../aws-exports'
 import Swal from 'sweetalert2'
+import endpoint from '../../config'
 Amplify.configure(awsconfig)
 
 export default {
   name: 'RegisterContainer',
   data () {
     return {
+      ruta: endpoint.endpoint,
       name: null,
       user: null,
       email: null,
@@ -129,21 +131,21 @@ export default {
         console.log(user)
         console.log(userId)
         const dataSendSave = {}
-        dataSendSave.ID_USUARIO = userId
+        dataSendSave.ID_USUARIO = this.user // userId
         dataSendSave.DSC_USERNAME = this.user
         dataSendSave.DSC_NOMBRES = this.name
         dataSendSave.DSC_EMAIL = this.email
         console.log(dataSendSave)
         dataSendSave.DSC_APELLIDOS = this.user
-        const respSave = await axios.post('http://localhost:3000/user/register', dataSendSave)
+        const respSave = await axios.post(this.ruta + 'user/register', dataSendSave)
         console.log(respSave)
         Swal.fire({
           title: 'Se registro correctamente el usuario.',
           icon: 'success',
           confirmButtonText: 'Continuar'
         }).then(result => {
-          if (result.dismiss) {
-            window.location.href = '/verify'
+          if (!result.dismiss) {
+            window.location.href = '/config/verify'
           }
         })
         console.log(user)
@@ -151,6 +153,18 @@ export default {
         if (err.code === '') {
           Swal.fire({
             title: 'Usuario o contraseña incorrecto.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          })
+        } else if (err.code === 'USER_EXISTS') {
+          Swal.fire({
+            title: 'Usuario ya existe.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          })
+        } else if (err.__type === 'UsernameExistsException') {
+          Swal.fire({
+            title: 'El correo ya existe.',
             icon: 'error',
             confirmButtonText: 'Aceptar'
           })

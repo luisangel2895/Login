@@ -5,12 +5,12 @@
         <form action="" @submit.prevent="login()">
           <div><input type="text" class="input-text" v-model="username" :placeholder="$t('login.form.user')"></div>
            <div class="error" v-if="!$v.username.required && loginPressed">{{ $t('login.form.userRequired') }}</div>
-          <div><input type="text" class="input-text" v-model="password" :placeholder="$t('login.form.password')"></div>
+          <div><input type="password" class="input-text" v-model="password" :placeholder="$t('login.form.password')"></div>
            <div class="error" v-if="!$v.password.required && loginPressed">{{ $t('login.form.passwordRequired') }}</div>
           <div class="button-container"><button type="submit" class="button-login">{{ $t('login.form.login') }}</button></div>
         </form>
-        <div class="container-buttom-text">{{ $t('login.msg1') }} <router-link to="register" class="link-bottom">{{ $t('login.link1') }}</router-link></div>
-        <div class="container-buttom-text">{{ $t('login.msg2') }} <router-link to="verify" class="link-bottom">{{ $t('login.link2') }}</router-link></div>
+        <div class="container-buttom-text">{{ $t('login.msg1') }} <router-link to="/config/register" class="link-bottom">{{ $t('login.link1') }}</router-link></div>
+        <div class="container-buttom-text">{{ $t('login.msg2') }} <router-link to="/config/verify" class="link-bottom">{{ $t('login.link2') }}</router-link></div>
     </b-container>
 </template>
 <script>
@@ -19,6 +19,8 @@ import { required } from 'vuelidate/lib/validators'
 import Amplify, { Auth } from 'aws-amplify'
 import awsconfig from '../../aws-exports'
 import Swal from 'sweetalert2'
+import axios from 'axios'
+import dbConfig from '../../config'
 Amplify.configure(awsconfig)
 export default {
   name: 'LoginContainer',
@@ -79,13 +81,30 @@ export default {
         // console.log(`myJwt: ${jwt}`)
         console.log('el token : ', jwt)
         // console.log('el clientId : ', clientId)
+        localStorage.setItem('username', this.username)
+        localStorage.setItem('clientId', clientId)
+        const dataCliente = await axios.post(dbConfig.endpoint + 'user/getUserById', { DSC_USERNAME: this.username })
+        console.log('el dataCliente : ', dataCliente.data)
+        localStorage.setItem('userObj', JSON.stringify(dataCliente.data.obj))
 
-        window.location.href = '/profile'
+        // localStorage.setItem('username', this.username)
+        sessionStorage.setItem('username', this.username)
+        const dataClienteObj = dataCliente.data.obj
+        // dataClienteObj.DSC_TELEFONO = '561351684'
+        if (dataClienteObj.FLG_INICIO_SESION === '0') {
+          dataClienteObj.ID_PAIS = 1// parseInt(dataClienteObj.ID_PAIS)// ? dataClienteObj.ID_PAIS : 1
+          const respCreateClient = await axios.post(dbConfig.endpoint + 'client/createClient', dataClienteObj)
+          console.log('respCreateClient : ', respCreateClient)
+          await axios.put(dbConfig.endpoint + 'user/updateUserByLogin', { DSC_USERNAME: this.username, id_cliente: respCreateClient.data.obj.id_cliente })
+          // console.log('el dataCliente : ', dataCliente)
+        }
+        // window.location.href = 'http://isc-overview-monitor.s3-website-us-east-1.amazonaws.com/overview/accounts'
+        window.location.href = 'http://isc-overview-monitor.s3-website-us-east-1.amazonaws.com/settings/home'
       } catch (error) {
         console.log('error signing in', error)
         if (error.code === 'NotAuthorizedException') {
           Swal.fire({
-            title: 'Usuario o contraseña incorrecto.',
+            title: 'Incorrect username or password.',
             icon: 'error',
             confirmButtonText: 'Aceptar'
           })
@@ -97,7 +116,7 @@ export default {
           })
         } else {
           Swal.fire({
-            title: 'Ocurrio un error al iniciar sesión.',
+            title: 'An error occurred when logging in.',
             icon: 'error',
             confirmButtonText: 'Aceptar'
           })

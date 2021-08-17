@@ -17,8 +17,8 @@
         <b-nav-item><router-link to="/contact" class="link-navbar">{{ $t('navbar.contact') }}</router-link></b-nav-item>
       </b-navbar-nav>
       <b-navbar-nav class="navbar-rigth">
-        <b-nav-item v-if="showLoginButton"><router-link to="/register"><button class="button-nav" type="button" @click="showRegister()">{{ $t('navbar.login') }}</button></router-link></b-nav-item>
-        <b-nav-item v-if="showRegisterButton"><router-link to="/login"><button class="button-nav" type="button" @click="showLogin()">{{ $t('navbar.register') }}</button></router-link></b-nav-item>
+        <b-nav-item v-if="showLoginButton"><router-link to="/config/register"><button class="button-nav" type="button" @click="showRegister()">{{ $t('navbar.login') }}</button></router-link></b-nav-item>
+        <b-nav-item v-if="showRegisterButton"><router-link to="/config/login"><button class="button-nav" type="button" @click="showLogin()">{{ $t('navbar.register') }}</button></router-link></b-nav-item>
         <b-nav-item><b-nav-text @click="selectLang('es')" class="change-lang" id="es-selector">ES</b-nav-text></b-nav-item>
         <b-nav-item><b-nav-text class="lang-separator">|</b-nav-text></b-nav-item>
         <b-nav-item><b-nav-text @click="selectLang('en')" class="change-lang" id="en-selector">EN</b-nav-text></b-nav-item>
@@ -34,8 +34,8 @@ export default {
     return {
       showList: false,
       actualRoute: null,
-      showLoginButton: true,
-      showRegisterButton: false,
+      showLoginButton: false,
+      showRegisterButton: true,
       linksNav: ['home', 'ecosystem', 'contact']
     }
   },

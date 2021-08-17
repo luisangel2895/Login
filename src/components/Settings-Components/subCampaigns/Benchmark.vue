@@ -44,51 +44,51 @@
           </div>
           <div class="clear"></div>
           <div id="bncfb" v-if="selectbench == 'fb'">
-            <div v-for="item in benchs" :key="item.id">
-              <div class="bncrow" v-if="item.rss=='facebook'">
+            <div v-for="item in arrBenchmark" :key="item.id_cuenta_redsocial">
+              <div class="bncrow" v-if="item.id_red_social=='1'">
               <div class="browt">
                 <img
-                  :src="item.image"
-                />{{item.name}}
+                  :src="item.dsc_logo"
+                />{{item.nom_cuenta_red_social}}
               </div>
               <div class="browi">
                 <i onclick="pc_del_acc(this,9656);" class="fa fa-trash"></i>
               </div>
-              <div class="browd">{{'Date created: ' +item.date}}</div>
+              <div class="browd">{{'Date created: ' +getFechaFormat(item.fec_creacion)}}</div>
               <div class="clear"></div>
               </div>
             </div>
             <div class="clear"></div>
           </div>
           <div id="bncyt" v-if="selectbench == 'yt'">
-            <div v-for="item in benchs" :key="item.id">
-              <div class="bncrow" v-if="item.rss=='youtube'">
+            <div v-for="item in arrBenchmark" :key="item.id_cuenta_redsocial">
+              <div class="bncrow" v-if="item.id_red_social=='2'">
               <div class="browt">
                 <img
-                  :src="item.image"
-                />{{item.name}}
+                  :src="item.dsc_logo"
+                />{{item.nom_cuenta_red_social}}
               </div>
               <div class="browi">
                 <i onclick="pc_del_acc(this,9656);" class="fa fa-trash"></i>
               </div>
-              <div class="browd">{{'Date created: ' +item.date}}</div>
+              <div class="browd">{{'Date created: ' +getFechaFormat(item.fec_creacion)}}</div>
               <div class="clear"></div>
               </div>
             </div>
             <div class="clear"></div>
           </div>
           <div id="bnctw" v-if="selectbench == 'twi'">
-            <div v-for="item in benchs" :key="item.id">
-              <div class="bncrow" v-if="item.rss=='twitter'">
+            <div v-for="item in arrBenchmark" :key="item.id_cuenta_redsocial">
+              <div class="bncrow" v-if="item.id_red_social=='3'">
               <div class="browt">
                 <img
-                  :src="item.image"
-                />{{item.name}}
+                  :src="item.dsc_logo"
+                />{{item.nom_cuenta_red_social}}
               </div>
               <div class="browi">
                 <i onclick="pc_del_acc(this,9656);" class="fa fa-trash"></i>
               </div>
-              <div class="browd">{{'Date created: ' +item.date}}</div>
+              <div class="browd">{{'Date created: ' +getFechaFormat(item.fec_creacion)}}</div>
               <div class="clear"></div>
               </div>
             </div>
@@ -96,17 +96,17 @@
             <div class="clear"></div>
           </div>
           <div id="bncin" v-if="selectbench == 'ins'">
-            <div v-for="item in benchs" :key="item.id">
-              <div class="bncrow" v-if="item.rss=='instagram'">
+            <div v-for="item in arrBenchmark" :key="item.id_cuenta_redsocial">
+              <div class="bncrow" v-if="item.id_red_social=='4'">
               <div class="browt">
                 <img
-                  :src="item.image"
-                />{{item.name}}
+                  :src="item.dsc_logo"
+                />{{item.nom_cuenta_red_social}}
               </div>
               <div class="browi">
                 <i onclick="pc_del_acc(this,9656);" class="fa fa-trash"></i>
               </div>
-              <div class="browd">{{'Date created: ' +item.date}}</div>
+              <div class="browd">{{'Date created: ' +getFechaFormat(item.fec_creacion)}}</div>
               <div class="clear"></div>
               </div>
             </div>
@@ -120,10 +120,14 @@
 </template>
 
 <script>
+import axios from 'axios'
+import endpoint from '../../../config'
 export default {
   name: 'Benchmark',
   data () {
     return {
+      arrBenchmark: [],
+      ruta: endpoint.endpoint,
       selectbench: 'fb',
       benchs: [
         {
@@ -170,7 +174,35 @@ export default {
         }
       ]
     }
+  },
+  async mounted () {
+    await this.getBenchmark()
+  },
+  methods: {
+    async getBenchmark () {
+      try {
+        const respListBenchmark = await axios.get(this.ruta + 'monitor/getBenchmark')
+        console.log(respListBenchmark)
+        console.log(respListBenchmark.data)
+        this.arrBenchmark = respListBenchmark.data.list
+      } catch (error) {
+        console.log('el error: ', error)
+      }
+    },
+    getFechaFormat (fecha) {
+      try {
+        console.log('la fecha: ', fecha)
+        const fechaFormat = new Date(fecha)
+        fechaFormat.setHours(fechaFormat.getHours() + 5)
+        const respFecha = fechaFormat.getDay() + '/' + fechaFormat.getMonth() + '/' + fechaFormat.getFullYear() + ' ' + fechaFormat.getHours() + ':' + fechaFormat.getMinutes()
+        return respFecha
+      } catch (error) {
+        console.error('error en fecha: ', error)
+        return 'Sin fecha'
+      }
+    }
   }
+
 }
 </script>
 
